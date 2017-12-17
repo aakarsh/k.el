@@ -9,8 +9,7 @@
 (defun k/jump-to-macro-symbol(regexp prompt)
   (interactive)
     (let ((results '())
-          (selection nil)
-          )
+          (selection nil))
       (save-excursion
         (goto-char 0)
         (while (search-forward-regexp regexp nil t)
@@ -18,14 +17,15 @@
            (list (match-string 1)  (match-beginning 1) (match-end 1))
            results))
         (setf results (nreverse results))    
-        (setf selection (ido-completing-read
-                         prompt
-                         (mapcar (lambda(l)  (car l)) results))))
+        (setf selection
+              (ido-completing-read
+               prompt
+               (mapcar (lambda(l)  (car l)) results))))
+      
         (loop for elt in results
               do
               (when (equal (car elt) selection)
                 (goto-char (nth 1 elt))
-                (gtags-find-tag-from-here)
-                ))))
+                (gtags-find-tag-from-here)))))
   
 
