@@ -20,7 +20,7 @@
         (setf selection
               (ido-completing-read
                prompt
-               (mapcar (lambda(l)  (car l)) results))))
+               (mapcar 'car results))))
       
         (loop for elt in results
               do
